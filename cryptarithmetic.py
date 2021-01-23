@@ -2,7 +2,7 @@ import time
 import sys
 
 
-class Solver:
+class CryptarithmeticSolver:
     def __init__(self, operand, answer):
         self.operand = operand
         self.answer = answer
@@ -99,7 +99,7 @@ class Solver:
             if len(opr) - 1 - i == 0:
                 print(' '*space, opr[i], '+', sep='')
             else:
-                print(' '*space, opr[i], ' '*10, sep='')
+                print(' '*space, opr[i], ' '*14, sep='')
         print('-' * len(str(ans)))
         print(ans)
 
@@ -129,20 +129,21 @@ def showProblem(opr, ans):
     print(ans[0])
 
 
-operand, answer = readFile("cryptarithmetic_spec.txt")
-showProblem(operand, answer)
+if __name__ == "__main__":
+    operand, answer = readFile("cryptarithmetic_spec.txt")
+    showProblem(operand, answer)
 
-solver = Solver(operand, answer)
+    solver = CryptarithmeticSolver(operand, answer)
 
-print('\nSOLUTION', '========', sep='\n')
-initialTime = time.time()
-print("Calculating...", end='\r')
-solver.calculate()
-sys.stdout.flush()
-solver.showSolution()
-finalTime = time.time()
+    print('\nSOLUTION', '========', sep='\n')
+    initialTime = time.time()
+    print("Calculating...", end='\r')
+    solver.calculate()
+    sys.stdout.flush()
+    solver.showSolution()
+    finalTime = time.time()
 
-print("\nEXECUTION TIME: ", end='')
-print(finalTime - initialTime, end='')
-print("\nTOTAL TRIES: ", end='')
-print(solver.triesCount)
+    print("\nEXECUTION TIME: ", end='')
+    print(finalTime - initialTime, 's', end='')
+    print("\nTOTAL TRIES: ", end='')
+    print("{:,}".format(solver.triesCount))

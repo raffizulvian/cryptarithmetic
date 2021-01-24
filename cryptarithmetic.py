@@ -3,6 +3,39 @@ import sys
 
 
 class CryptarithmeticSolver:
+    """
+    Kelas untuk menyelesaikan persoalan Cryptarithmetic dengan algoritma brute force.
+
+    Parameters
+    ----------
+    operand : list
+        Daftar string kata yang berperan sebagai operan.
+
+    answer : list
+        Daftar string kata yang berperan sebagai hasil.
+
+    Attributes
+    ----------
+    operand : list
+        Daftar string kata yang berperan sebagai operan.
+
+    answer : list
+        Daftar string kata yang berperan sebagai hasil.
+
+    mapping : dict
+        Pemetaan yang menunjukan asosiasi huruf-angka yang bersesuaian.
+
+    numOpr : list
+        Daftar integer yang merupakan hasil substitusi operan dengan angka yang bersesuaian.
+
+    numAns : int
+        Integer yang merupakan hasil substitusi hasil dengan angka yang bersesuaian.
+
+    triesCount : int
+        Menyimpan jumlah uji coba/percobaan untuk mencari pemetaan huruf-angka yang tepat.
+
+    """
+
     def __init__(self, operand, answer):
         self.operand = operand
         self.answer = answer
@@ -11,129 +44,219 @@ class CryptarithmeticSolver:
         self.numAns = 0
         self.triesCount = 0
 
-    def _initMapping(self):
-        i = 0
-        if len(self.operand[0]) == len(self.answer[0]):
-            allWords = self.operand + self.answer
-        else:
-            allWords = self.answer + self.operand
-        for word in allWords:
-            for letter in word:
-                if letter not in self.mapping.keys():
-                    self.mapping[letter] = i
-                    i += 1
-                else:
-                    continue
+    def calculate(self) -> dict:
 
-    def _subtitute(self):
-        answerNum = ''
-        for letter in self.answer[0]:
-            answerNum += str(self.mapping[letter])
-        if answerNum[0] == '0':
-            return None
-        self.numAns = int(answerNum)
-        for i in range(len(self.operand)):
-            word = self.operand[i]
-            num = ''
-            for letter in word:
-                num += str(self.mapping[letter])
-            if num[0] == '0':
-                return None
-            self.numOpr.append(int(num))
-        return (self.numOpr, self.numAns)
-
-    def _evaluate(self):
-        isOk = True
-        for val in list(self.mapping.values()):
-            if list(self.mapping.values()).count(val) > 1:
-                isOk = False
-                break
-        guess = sum(self.numOpr)
-        return (guess == self.numAns) and isOk
-
-    def _checkIsContain(self, val, mapping):
-        if val in mapping.values():
-            return True
-        return False
-
-    def _incr(self):
-        i = -1
-        key = list(self.mapping.keys())
-        val = range(10)
-        isFinish = False
-        while not isFinish and i >= -1 * len(key):
-            currVal = self.mapping[key[i]]
-            nextPos = val.index(currVal) + 1
-            if nextPos == 10:
-                nextPos = 0
-                self.mapping[key[i]] = nextPos
-                i -= 1
-            else:
-                while self._checkIsContain(nextPos, self.mapping) and nextPos < 9:
-                    nextPos += 1
-                self.mapping[key[i]] = nextPos
-                isFinish = True
-
-    def calculate(self):
         isFound = False
+
+        # Melakukan pemetaan awal pada huruf-angka
         self._initMapping()
+
+        # Mengulagi proses sampai ditemukan solusi yang sesuai
         while not isFound:
+
+            # Menyubstitusikan huruf-huruf pada operan dan hasil serta
+            # melakukan pengecekan apakah percobaan saat ini sesuai aturan
             guess = self._subtitute()
             if not guess:
+
+                # Melakukan inkremen pada huruf paling kanan dalam pemetaan
                 self._incr()
                 self.triesCount += 1
                 continue
+
+            # Mengecek hasil penjumlahan operan apakah sesuai dengan hasil
             isFound = self._evaluate()
             if not isFound:
                 self.triesCount += 1
                 self.numOpr = []
                 self.numAns = 0
                 self._incr()
+
         return self.mapping
 
+    def showProblem(self):
+        """
+        Mencetak persoalan yang terdiri dari operan-operan, garis
+        batas serta hasil kelayar dengan format yang ditentukan.
+
+        """
+
+        print('\nPROBLEM', '=======', sep='\n')
+
+        # Mencetak operan-operan
+        for i in range(len(self.operand)):
+            space = len(self.answer[0]) - len(self.operand[i])
+            if len(self.operand) - 1 - i == 0:
+                print(' '*space, self.operand[i], '+', sep='')
+            else:
+                print(' '*space, self.operand[i], sep='')
+
+        # Mencetak garis batas serta hasil
+        print('-' * len(self.answer[0]))
+        print(self.answer[0])
+
     def showSolution(self):
+        """
+        Mencetak solusi persoalan dengan format yang ditentukan.
+
+        """
+
         opr = self.numOpr
         ans = self.numAns
+
+        # Mencetak operan-operan
         for i in range(len(opr)):
             space = len(str(ans)) - len(str(opr[i]))
             if len(opr) - 1 - i == 0:
                 print(' '*space, opr[i], '+', sep='')
             else:
                 print(' '*space, opr[i], ' '*14, sep='')
+
+        # Menyetak garis batas serta hasil
         print('-' * len(str(ans)))
         print(ans)
 
+    def _initMapping(self):
+        """
+        Menginisialisasi pemetaan awal antara huruf dengan angka dari 1 sampai 9.
 
-def readFile(path):
+        """
+
+        i = 0
+
+        # Menentukan huruf mana yang akan ditempatkan di kiri
+        if len(self.operand[0]) == len(self.answer[0]):
+            allWords = self.operand + self.answer
+        else:
+            allWords = self.answer + self.operand
+
+        # Mengasosiasikan tiap huruf dengan sebuah angka dari 1 sampai 9
+        for word in allWords:
+            for letter in word:
+                if letter not in self.mapping.keys():
+                    self.mapping[letter] = i
+                    i += 1
+
+    def _subtitute(self) -> [None, tuple]:
+        """
+        Menyubstitusikan tiap huruf dengan angka-angka yang bersesuaian pada
+        pemetaan saat fungsi ini dipanggil.
+
+        """
+
+        # Mengganti huruf-huruf pada hasil dengan angka yang bersesuaian
+        answerNum = ''
+        for letter in self.answer[0]:
+            answerNum += str(self.mapping[letter])
+
+            # Mengembalikan None jika huruf pertama pada kata diawali angka 0
+            if answerNum[0] == '0':
+                return None
+        self.numAns = int(answerNum)
+
+        # Mengganti huruf-huruf pada operan dengan angka yang bersesuaian
+        for i in range(len(self.operand)):
+            word = self.operand[i]
+            operandNum = ''
+            for letter in word:
+                operandNum += str(self.mapping[letter])
+
+                # Mengembalikan None jika huruf pertama pada kata diawali angka 0
+                if operandNum[0] == '0':
+                    return None
+            self.numOpr.append(int(operandNum))
+
+        return (self.numOpr, self.numAns)
+
+    def _evaluate(self) -> bool:
+        """
+        Melakukan evaluasi pada operan dan hasil yang sudah diganti dengan angka.
+        Evaluasi terdiri dari pengecekan agar tidak ada angka ganda dan juga
+        pengecekan hasil operasi penjumlahan operannya apakah sesuai dengan hasil.
+
+        """
+
+        isUnique = True
+        guess = sum(self.numOpr)
+
+        # Mengecek apabila ada angka ganda
+        for val in list(self.mapping.values()):
+            if list(self.mapping.values()).count(val) > 1:
+                isUnique = False
+                break
+
+        return (guess == self.numAns) and isUnique
+
+    def _checkIsContain(self, val, mapping) -> bool:
+        """
+        Mengecek apakah suatu angka sudah terdapat pada pemetaan huruf-angka.
+
+        """
+
+        if val in mapping.values():
+            return True
+        return False
+
+    def _incr(self):
+        """
+        Membuat komposisi pemetaan huruf-angka baru.
+
+        """
+
+        i = -1
+        isFinish = False
+        key = list(self.mapping.keys())
+
+        while not isFinish and i >= -1 * len(key):
+            currVal = self.mapping[key[i]]
+            nextVal = currVal + 1
+
+            # Menjadikan 0 dan menambahkan 1 pada huruf di kiri jika hasil inkremen adalah 10
+            if nextVal == 10:
+                nextVal = 0
+                self.mapping[key[i]] = nextVal
+                i -= 1
+
+            # Menambahkan 1 sampai menjadi angka unik pertama setelah angka sebelumnya
+            else:
+                while self._checkIsContain(nextVal, self.mapping) and nextVal < 9:
+                    nextVal += 1
+                self.mapping[key[i]] = nextVal
+                isFinish = True
+
+
+def readFile(path) -> tuple:
+    """
+    Membaca dan memeroses file yang bebrisi persoalan Cryptarithmetic.
+
+    """
+
     operand = []
     answer = []
+
     with open(path) as f:
+
+        # Membaca tiap baris pada file persoalan
         lines = [line.strip() for line in f.read().splitlines()]
+
+        # Membuang baris yang tidak dibutuhkan
         lines.pop(-2)
+
+        # Memasukkan operan dan hasil pada list masing-masing
         answer.append(lines.pop(-1))
         lines[-1] = lines[-1].strip('+')
         operand.extend(lines)
+
         f.close()
+
     return (operand, answer)
-
-
-def showProblem(opr, ans):
-    print('\nPROBLEM', '=======', sep='\n')
-    for i in range(len(opr)):
-        space = len(ans[0]) - len(opr[i])
-        if len(opr) - 1 - i == 0:
-            print(' '*space, opr[i], '+', sep='')
-        else:
-            print(' '*space, opr[i], sep='')
-    print('-' * len(ans[0]))
-    print(ans[0])
 
 
 if __name__ == "__main__":
     operand, answer = readFile("cryptarithmetic_spec.txt")
-    showProblem(operand, answer)
 
     solver = CryptarithmeticSolver(operand, answer)
+    solver.showProblem()
 
     print('\nSOLUTION', '========', sep='\n')
     initialTime = time.time()
@@ -145,5 +268,6 @@ if __name__ == "__main__":
 
     print("\nEXECUTION TIME: ", end='')
     print(finalTime - initialTime, 's', end='')
+
     print("\nTOTAL TRIES: ", end='')
     print("{:,}".format(solver.triesCount))

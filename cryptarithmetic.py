@@ -168,6 +168,33 @@ class CryptarithmeticSolver:
 
         return (self.numOpr, self.numAns)
 
+    def _incr(self):
+        """
+        Membuat komposisi pemetaan huruf-angka baru.
+
+        """
+
+        i = -1
+        isFinish = False
+        key = list(self.mapping.keys())
+
+        while not isFinish and i >= -1 * len(key):
+            currVal = self.mapping[key[i]]
+            nextVal = currVal + 1
+
+            # Menjadikan 0 dan menambahkan 1 pada huruf di kiri jika hasil inkremen adalah 10
+            if nextVal == 10:
+                nextVal = 0
+                self.mapping[key[i]] = nextVal
+                i -= 1
+
+            # Menambahkan 1 sampai menjadi angka unik pertama setelah angka sebelumnya
+            else:
+                while self._checkIsContain(nextVal, self.mapping) and nextVal < 9:
+                    nextVal += 1
+                self.mapping[key[i]] = nextVal
+                isFinish = True
+
     def _evaluate(self) -> bool:
         """
         Melakukan evaluasi pada operan dan hasil yang sudah diganti dengan angka.
@@ -196,33 +223,6 @@ class CryptarithmeticSolver:
         if val in mapping.values():
             return True
         return False
-
-    def _incr(self):
-        """
-        Membuat komposisi pemetaan huruf-angka baru.
-
-        """
-
-        i = -1
-        isFinish = False
-        key = list(self.mapping.keys())
-
-        while not isFinish and i >= -1 * len(key):
-            currVal = self.mapping[key[i]]
-            nextVal = currVal + 1
-
-            # Menjadikan 0 dan menambahkan 1 pada huruf di kiri jika hasil inkremen adalah 10
-            if nextVal == 10:
-                nextVal = 0
-                self.mapping[key[i]] = nextVal
-                i -= 1
-
-            # Menambahkan 1 sampai menjadi angka unik pertama setelah angka sebelumnya
-            else:
-                while self._checkIsContain(nextVal, self.mapping) and nextVal < 9:
-                    nextVal += 1
-                self.mapping[key[i]] = nextVal
-                isFinish = True
 
 
 def readFile(path) -> tuple:

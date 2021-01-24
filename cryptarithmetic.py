@@ -253,7 +253,17 @@ def readFile(path) -> tuple:
 
 
 if __name__ == "__main__":
-    operand, answer = readFile("cryptarithmetic_spec.txt")
+    problemList = [
+        "problem01.txt", "problem02.txt", "problem03.txt", "problem04.txt",
+        "problem05.txt", "problem06.txt", "problem07.txt", "problem08.txt",
+        "problem09.txt", "problem10.txt"
+    ]
+
+    selectedProblem = int(
+        input("\nChoose cryptarithmetic problem to solve (1-10): ")
+    ) - 1
+
+    operand, answer = readFile(problemList[selectedProblem])
 
     solver = CryptarithmeticSolver(operand, answer)
     solver.showProblem()

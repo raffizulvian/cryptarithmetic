@@ -62,6 +62,8 @@ class CryptarithmeticSolver:
                 # Melakukan inkremen pada huruf paling kanan dalam pemetaan
                 self._incr()
                 self.triesCount += 1
+                self.numOpr = []
+                self.numAns = 0
                 continue
 
             # Mengecek hasil penjumlahan operan apakah sesuai dengan hasil

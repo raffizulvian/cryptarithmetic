@@ -1,5 +1,7 @@
-import time
 import sys
+import time
+
+from pathlib import Path
 
 
 class CryptarithmeticSolver:
@@ -206,7 +208,7 @@ class CryptarithmeticSolver:
         """
 
         isUnique = True
-        guess = sum(self.numOpr)
+        guessAns = sum(self.numOpr)
 
         # Mengecek apabila ada angka ganda
         for val in list(self.mapping.values()):
@@ -214,7 +216,7 @@ class CryptarithmeticSolver:
                 isUnique = False
                 break
 
-        return (guess == self.numAns) and isUnique
+        return (guessAns == self.numAns) and isUnique
 
     def _checkIsContain(self, val, mapping) -> bool:
         """
@@ -222,12 +224,10 @@ class CryptarithmeticSolver:
 
         """
 
-        if val in mapping.values():
-            return True
-        return False
+        return val in mapping.values()
 
 
-def readFile(path) -> tuple:
+def readFile(file_name) -> tuple:
     """
     Membaca dan memeroses file yang bebrisi persoalan Cryptarithmetic.
 
@@ -236,7 +236,10 @@ def readFile(path) -> tuple:
     operand = []
     answer = []
 
-    with open(path) as f:
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    FULL_PATH = Path(BASE_DIR).joinpath('test', file_name)
+
+    with open(FULL_PATH) as f:
 
         # Membaca tiap baris pada file persoalan
         lines = [line.strip() for line in f.read().splitlines()]

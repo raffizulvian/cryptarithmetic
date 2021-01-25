@@ -81,7 +81,7 @@ class CryptarithmeticSolver:
                 self.num_ans = 0
                 self._incr()
 
-        return self.mapping
+        return is_found
 
     def show_problem(self):
         """
@@ -298,9 +298,12 @@ if __name__ == "__main__":
     print('\nSOLUTION', '========', sep='\n')
     initial_time = time()
     print("Calculating...", end='\r')
-    solver.calculate()
+    result = solver.calculate()
     sys.stdout.flush()
-    solver.show_solution()
+    if result:
+        solver.show_solution()
+    else:
+        print("Sorry, no solutions found!")
     final_time = time()
 
     print("\nEXECUTION TIME: ", end='')

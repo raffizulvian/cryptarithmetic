@@ -1,6 +1,8 @@
 doc/function/
 doc/screenshots/
 
+.vscode/
+
 test.py
 
 *.pdf

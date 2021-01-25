@@ -1,5 +1,6 @@
+import sys
+
 from pathlib import Path
-from sys import stdout
 from time import time
 
 
@@ -227,6 +228,23 @@ class CryptarithmeticSolver:
         return val in mapping.values()
 
 
+def resource_path(relative_path):
+    """ 
+    Mendapatkan absolute path file yang dituju, berfungsi untuk file .py
+    dan untuk file .exe hasil PyInstaller.
+
+    """
+
+    try:
+        # PyInstaller membuat folder sementara dan menyimpan di _MEIPASS
+        base_path = sys._MEIPASS
+
+    except Exception:
+        base_path = Path('.').absolute()
+
+    return Path(base_path).joinpath(relative_path)
+
+
 def readFile(file_name) -> tuple:
     """
     Membaca dan memeroses file yang bebrisi persoalan Cryptarithmetic.
@@ -236,10 +254,10 @@ def readFile(file_name) -> tuple:
     operand = []
     answer = []
 
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    FULL_PATH = Path(BASE_DIR).joinpath('test', file_name)
+    rel = Path("test").joinpath(file_name)
+    full_path = resource_path(rel)
 
-    with open(FULL_PATH) as f:
+    with open(full_path) as f:
 
         # Membaca tiap baris pada file persoalan
         lines = [line.strip() for line in f.read().splitlines()]
@@ -277,7 +295,7 @@ if __name__ == "__main__":
     initialTime = time()
     print("Calculating...", end='\r')
     solver.calculate()
-    stdout.flush()
+    sys.stdout.flush()
     solver.showSolution()
     finalTime = time()
 

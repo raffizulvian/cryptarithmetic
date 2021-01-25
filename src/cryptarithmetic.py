@@ -1,7 +1,6 @@
-import sys
-import time
-
 from pathlib import Path
+from sys import stdout
+from time import time
 
 
 class CryptarithmeticSolver:
@@ -52,9 +51,10 @@ class CryptarithmeticSolver:
 
         # Melakukan pemetaan awal pada huruf-angka
         self._initMapping()
+        numOfLetters = len(self.mapping.values())
 
         # Mengulagi proses sampai ditemukan solusi yang sesuai
-        while not isFound:
+        while not isFound and list(self.mapping.values()).count(9) < numOfLetters:
 
             # Menyubstitusikan huruf-huruf pada operan dan hasil serta
             # melakukan pengecekan apakah percobaan saat ini sesuai aturan
@@ -274,12 +274,12 @@ if __name__ == "__main__":
     solver.showProblem()
 
     print('\nSOLUTION', '========', sep='\n')
-    initialTime = time.time()
+    initialTime = time()
     print("Calculating...", end='\r')
     solver.calculate()
-    sys.stdout.flush()
+    stdout.flush()
     solver.showSolution()
-    finalTime = time.time()
+    finalTime = time()
 
     print("\nEXECUTION TIME: ", end='')
     print(finalTime - initialTime, 's', end='')

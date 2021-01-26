@@ -46,9 +46,9 @@ problem_list = [...]
 problem_list += ["problemXX.txt", "problemYY.txt"]
 ```
 
-**WARNING**: Jika menambahkan soal baru, soal tersebut hanya bisa dibaca jika menjalankan program langsung dari `crytarithmetic.py`. Untuk membuat file `executable` baru dengan soal tambahan silakan merujuk pada
+**WARNING**: Jika menambahkan soal baru, soal tersebut hanya bisa dibaca jika menjalankan program langsung dari `cryptarithmetic.py`. Untuk membuat file `executable` baru dengan soal tambahan silakan merujuk pada
 [dokumentasi PyInstaller](https://pyinstaller.readthedocs.io/en/stable/).
 
 ## Author
 
-13519003 - Raffi Zulvian Muzhaffar 😎
+13519003 - [Raffi Zulvian Muzhaffar](https://linkedin.com/in/raffizulvian/) 😎

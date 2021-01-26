@@ -5,6 +5,6 @@ doc/screenshots/
 
 test.py
 
-*.pdf
+/*.pdf
 *.jpg
 *.png

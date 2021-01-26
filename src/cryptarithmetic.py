@@ -45,7 +45,7 @@ class CryptarithmeticSolver:
         self.num_ans = 0
         self.tries_count = 0
 
-    def calculate(self) -> dict:
+    def calculate(self) -> bool:
         """
         Bagian utama dari penerapan algoritma brute force. Melakukan iterasi dan
         langkah langkah untuk menyelesaikan persoalan cryptarithmetic.

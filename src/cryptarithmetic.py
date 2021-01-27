@@ -183,25 +183,25 @@ class CryptarithmeticSolver:
 
         """
 
-        i = -1
+        pos = -1
         is_finish = False
         key = list(self.mapping.keys())
 
-        while not is_finish and i >= -1 * len(key):
-            curr_val = self.mapping[key[i]]
+        while not is_finish and pos >= -1 * len(key):
+            curr_val = self.mapping[key[pos]]
             next_val = curr_val + 1
 
             # Menjadikan 0 dan menambahkan 1 pada huruf di kiri jika hasil inkremen adalah 10
             if next_val == 10:
                 next_val = 0
-                self.mapping[key[i]] = next_val
-                i -= 1
+                self.mapping[key[pos]] = next_val
+                pos -= 1
 
             # Menambahkan 1 sampai menjadi angka unik pertama setelah angka sebelumnya
             else:
                 while self._check_is_contain(next_val, self.mapping) and next_val < 9:
                     next_val += 1
-                self.mapping[key[i]] = next_val
+                self.mapping[key[pos]] = next_val
                 is_finish = True
 
     def _evaluate(self) -> bool:
@@ -295,8 +295,10 @@ if __name__ == "__main__":
     solver = CryptarithmeticSolver(operand, answer)
     solver.show_problem()
 
-    print('\nSOLUTION', '========', sep='\n')
+    # Mencatat waktu awal program berjalan
     initial_time = time()
+
+    print('\nSOLUTION', '========', sep='\n')
     print("Calculating...", end='\r')
     result = solver.calculate()
     sys.stdout.flush()
@@ -304,6 +306,8 @@ if __name__ == "__main__":
         solver.show_solution()
     else:
         print("Sorry, no solutions found!")
+
+    # Mencatat waktu akhir program berjalan
     final_time = time()
 
     print("\nEXECUTION TIME: ", end='')

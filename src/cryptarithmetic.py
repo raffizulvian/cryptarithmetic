@@ -131,7 +131,7 @@ class CryptarithmeticSolver:
 
         """
 
-        i = 0
+        initial_value = 0
 
         # Menentukan huruf mana yang akan ditempatkan di kiri
         if len(self.operand[0]) == len(self.answer[0]):
@@ -143,8 +143,8 @@ class CryptarithmeticSolver:
         for word in all_words:
             for letter in word:
                 if letter not in self.mapping.keys():
-                    self.mapping[letter] = i
-                    i += 1
+                    self.mapping[letter] = initial_value
+                    initial_value += 1
 
     def _subtitute(self) -> [None, tuple]:
         """

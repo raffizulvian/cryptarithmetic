@@ -8,7 +8,7 @@ Agar dapat menjalankan program langsung dari `cryptarithmetic.py`, pastikan komp
 
 - **Python** (>= 3.8.2)
 
-Namun jika ingin menjalankan program dari `crytarithmetic.exe` tidak diperlukan Python.
+Namun jika ingin menjalankan program dari `cryptarithmetic.exe` tidak diperlukan Python.
 
 ## Installation
 

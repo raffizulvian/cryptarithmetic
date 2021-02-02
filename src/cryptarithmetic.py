@@ -286,8 +286,10 @@ if __name__ == "__main__":
         "problem09.txt", "problem10.txt"
     ]
 
+    num_prob = len(problem_list)
+
     selected_problem = int(
-        input("\nChoose cryptarithmetic problem to solve (1-10): ")
+        input(f"\nChoose cryptarithmetic problem to solve (1-{num_prob}): ")
     ) - 1
 
     operand, answer = read_file(problem_list[selected_problem])

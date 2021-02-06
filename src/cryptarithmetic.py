@@ -261,20 +261,24 @@ def read_file(file_name) -> tuple:
     rel_path = Path("test").joinpath(file_name)
     full_path = resource_path(rel_path)
 
-    with open(full_path) as f:
+    try:
+        with open(full_path) as f:
 
-        # Membaca tiap baris pada file persoalan
-        lines = [line.strip() for line in f.read().splitlines()]
+            # Membaca tiap baris pada file persoalan
+            lines = [line.strip() for line in f.read().splitlines()]
 
-        # Membuang baris yang tidak dibutuhkan
-        lines.pop(-2)
+            # Membuang baris yang tidak dibutuhkan
+            lines.pop(-2)
 
-        # Memasukkan operan dan hasil pada list masing-masing
-        answer.append(lines.pop(-1))
-        lines[-1] = lines[-1].strip('+')
-        operand.extend(lines)
+            # Memasukkan operan dan hasil pada list masing-masing
+            answer.append(lines.pop(-1))
+            lines[-1] = lines[-1].strip('+')
+            operand.extend(lines)
 
-        f.close()
+            f.close()
+    
+    except FileNotFoundError:
+        print("**ERROR: File not found.**")
 
     return (operand, answer)
 

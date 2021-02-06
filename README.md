@@ -14,8 +14,10 @@ Namun jika ingin menjalankan program dari `cryptarithmetic.exe` tidak diperlukan
 
 Buat salinan dari program ini ke komputer lokal Anda dari GitHub
 
-    $ git clone https://github.com/raffizulvian/cryptarithmetic.git
-    
+```bash
+$ git clone https://github.com/raffizulvian/cryptarithmetic.git
+```
+
 atau dapat mendownload file zip baik dari GitHub maupun Google Drive pengumpulan tugas.
 
 ## How to Use
@@ -23,13 +25,17 @@ atau dapat mendownload file zip baik dari GitHub maupun Google Drive pengumpulan
 Tersedia dua pilihan untuk dapat menggunakan dan menjalankan program ini. Anda bisa menjalankan file `executable` atau file `python`.
 Untuk menjalankan program ini dari file `executable` pada top-level directory buka terminal atau command prompt dan tuliskan perintah:
 
-    $ cd bin
-    $ cryptarithmetic.exe
+```bash
+$ cd bin
+$ cryptarithmetic.exe
+```
 
 atau jika ingin menjalankan file `python`:
 
-    $ cd src
-    $ py cryptarithmetic.py
+```bash
+$ cd src
+$ py cryptarithmetic.py
+```
 
 Setelah program berjalan, silakan masukkan nomor persoalan yang ingin diselesaikan. Maka program akan segera mencari kemungkinan solusi dan menampilkannya di layar.
 

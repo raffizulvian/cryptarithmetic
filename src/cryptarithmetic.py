@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 from time import time
+from typing import NoReturn
 
 
 class CryptarithmeticSolver:
@@ -83,7 +84,7 @@ class CryptarithmeticSolver:
 
         return is_found
 
-    def show_problem(self):
+    def show_problem(self) -> NoReturn:
         """
         Mencetak persoalan yang terdiri dari operan-operan, garis
         batas serta hasil kelayar dengan format yang ditentukan.
@@ -104,7 +105,7 @@ class CryptarithmeticSolver:
         print('-' * len(self.answer[0]))
         print(self.answer[0])
 
-    def show_solution(self):
+    def show_solution(self) -> NoReturn:
         """
         Mencetak solusi persoalan dengan format yang ditentukan.
 
@@ -125,7 +126,7 @@ class CryptarithmeticSolver:
         print('-' * len(str(ans)))
         print(ans)
 
-    def _init_mapping(self):
+    def _init_mapping(self) -> NoReturn:
         """
         Menginisialisasi pemetaan awal antara huruf dengan angka dari 1 sampai 9.
 
@@ -177,7 +178,7 @@ class CryptarithmeticSolver:
 
         return (self.num_opr, self.num_ans)
 
-    def _incr(self):
+    def _incr(self) -> NoReturn:
         """
         Membuat komposisi pemetaan huruf-angka baru.
 
@@ -249,7 +250,7 @@ def resource_path(relative_path) -> Path:
     return Path(base_path).joinpath(relative_path)
 
 
-def read_file(file_name) -> tuple:
+def read_file(file_name) -> [tuple, NoReturn]:
     """
     Membaca dan memeroses file yang bebrisi persoalan Cryptarithmetic.
 

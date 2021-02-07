@@ -278,7 +278,9 @@ def read_file(file_name) -> tuple:
             f.close()
     
     except FileNotFoundError:
-        print("**ERROR: File not found.**")
+        print("\n**ERROR: File not found.**")
+        print("Please check your files name in problem_list or make sure that files exist.")
+        sys.exit(1)
 
     return (operand, answer)
 
@@ -287,7 +289,7 @@ if __name__ == "__main__":
     problem_list = [
         "problem01.txt", "problem02.txt", "problem03.txt", "problem04.txt",
         "problem05.txt", "problem06.txt", "problem07.txt", "problem08.txt",
-        "problem09.txt", "problem10.txt"
+        "problem09.txt", "problem11.txt"
     ]
 
     num_prob = len(problem_list)

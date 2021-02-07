@@ -289,7 +289,7 @@ if __name__ == "__main__":
     problem_list = [
         "problem01.txt", "problem02.txt", "problem03.txt", "problem04.txt",
         "problem05.txt", "problem06.txt", "problem07.txt", "problem08.txt",
-        "problem09.txt", "problem11.txt"
+        "problem09.txt", "problem10.txt"
     ]
 
     num_prob = len(problem_list)
